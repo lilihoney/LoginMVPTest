@@ -11,9 +11,9 @@ import prictices.qll.com.loginmvptest.loginblock.view.LView;
  */
 
 public class LoginPresenter implements LPresenter{
-    LView ilview;
-    User user;
-    Handler handler;
+    LView ilview;       //LView
+    User user;          //Model
+    Handler handler;    //逻辑处理
 
     public LoginPresenter(LView ilview){
         this.ilview = ilview;

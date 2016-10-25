@@ -30,24 +30,26 @@
             android:hint="请输入密码"
             android:id="@+id/et_psd"/>
     </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:layout_below="@+id/ll_tv">
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
             android:text="登录"
             android:id="@+id/btn_login"/>
+
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
             android:text="清空"
-            android:layout_weight="1"
             android:id="@+id/btn_clear"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         style="?android:attr/progressBarStyleSmall"
