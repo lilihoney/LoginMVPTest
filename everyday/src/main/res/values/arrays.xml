@@ -6,5 +6,6 @@
         <item>singleThreadPool</item>
         <item>scheduledThreadPool</item>
         <item>singleThreadScheduledPool</item>
+        <item>priorityThreadPool</item>
     </string-array>
 </resources>

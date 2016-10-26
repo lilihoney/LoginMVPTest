@@ -10,9 +10,13 @@ import android.widget.Toast;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import qll.com.threadpool.MyThreadPool;
+import qll.com.threadpool.PriorityRunnable;
 import qll.com.utils.MyLog;
 
 public class ThreadPoolActivity extends AppCompatActivity implements View.OnClickListener{
@@ -79,6 +83,14 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
                         shutdownExecutor(fixedThreadPool);
                         getSingleThreadScheduledExecutor();
                         break;
+                    case 5:
+                        shutdownExecutor(scheduledThreadPool);
+                        shutdownExecutor(singleThreadExecutor);
+                        shutdownExecutor(cachedThreadExecutor);
+                        shutdownExecutor(fixedThreadPool);
+                        shutdownExecutor(singleThreadScheduleExecutor);
+                        getPriorityThreadExecutor();
+                        break;
                     default:
                         break;
                 }
@@ -101,7 +113,7 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void run() {
                     String threadName = Thread.currentThread().getName();
-                    MyLog.e("threadName= ",threadName+",正在执行第"+index+"个任务");
+                    MyLog.v("threadName= ",threadName+",正在执行第"+index+"个任务");
                     try{
                         Thread.sleep(3000);
                     }catch(InterruptedException e){
@@ -110,10 +122,11 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
                 }
             });
         }
-        MyLog.e("fixedThreadPool isTerminated()= ",fixedThreadPool.isTerminated()+"");
+        MyLog.v("fixedThreadPool isTerminated()= ",fixedThreadPool.isTerminated()+"");
         return fixedThreadPool;
     }
 
+    //只有一个线程的线程池，每次只能执行不念旧恶任务，其他任务在队列中等待
     private ExecutorService getSingleThreadExecutor(){
         singleThreadExecutor = Executors.newSingleThreadExecutor();
         for(int i = 1;i <= 10;i++){
@@ -122,7 +135,7 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void run() {
                     String threadName = Thread.currentThread().getName();
-                    MyLog.e("threadName= ",threadName+",正在执行第"+index+"个任务");
+                    MyLog.v("threadName= ",threadName+",正在执行第"+index+"个任务");
                     try{
                         Thread.sleep(3000);
                     }catch(InterruptedException e){
@@ -131,7 +144,7 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
                 }
             });
         }
-        MyLog.e("singleThreadExecutor isTerminated()= ",singleThreadExecutor.isTerminated()+"");
+        MyLog.v("singleThreadExecutor isTerminated()= ",singleThreadExecutor.isTerminated()+"");
         return singleThreadExecutor;
     }
 
@@ -149,7 +162,7 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void run() {
                     String threadName = Thread.currentThread().getName();
-                    MyLog.e("cachedThreadExecutor ","thread "+ threadName + ",正在执行第"+index+"个任务");
+                    MyLog.v("cachedThreadExecutor ","thread "+ threadName + ",正在执行第"+index+"个任务");
                     try{
                         long time = index * 500;//任务时间
                         Thread.sleep(time);
@@ -170,7 +183,7 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void run() {
                 String threadName = Thread.currentThread().getName();
-                MyLog.e("scheduleThreadPool  ",",2delay thrad "+ threadName +"正在执行");
+                MyLog.v("scheduleThreadPool  ",",2delay thrad "+ threadName +"正在执行");
             }
         },2, TimeUnit.SECONDS);
         //延迟1秒后，每隔2秒执行一次该任务
@@ -178,20 +191,41 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void run() {
                 String threadName = Thread.currentThread().getName();
-                MyLog.e("scheduleThreadPool  ",",1delay 2 delay thread "+ threadName +"正在执行");
+                MyLog.v("scheduleThreadPool  ",",1delay 2 delay thread "+ threadName +"正在执行");
             }
         },1,2, TimeUnit.SECONDS);
     }
 
+    //
     private void getSingleThreadScheduledExecutor(){
         singleThreadScheduleExecutor = Executors.newSingleThreadScheduledExecutor();
         singleThreadScheduleExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 String threadName = Thread.currentThread().getName();
-                MyLog.e("stse",", thread: "+ threadName + ",正在执行");
+                MyLog.v("stse",", thread: "+ threadName + ",正在执行");
             }
         },1,2,TimeUnit.SECONDS);
+    }
+
+    //自定义线程池
+    private void getPriorityThreadExecutor(){
+        ExecutorService priorityThreadPool = new ThreadPoolExecutor(3,3,0L,TimeUnit.SECONDS,new PriorityBlockingQueue<Runnable>());
+        for(int i = 1;i <= 10;i++){
+            final int priority = i;
+            priorityThreadPool.execute(new PriorityRunnable(priority) {
+                @Override
+                public void doSth() {
+                    String threadName = Thread.currentThread().getName();
+                    MyLog.e("priorityThreadPool","thread " + threadName + ",正在执行优先级为"+priority+"的任务");
+                    try{
+                        Thread.sleep(1000);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     private void shutdownExecutor(ExecutorService e){
