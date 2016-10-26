@@ -28,4 +28,11 @@
         android:text="Hello World!"
         android:textColor="#000000"
         style="@style/Base.TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
+
+    <Button
+        android:id="@+id/btn_thread_pool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="测试自定义多线程"/>
 </RelativeLayout>

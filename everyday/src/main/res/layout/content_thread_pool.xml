@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_thread_pool"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="qll.com.everyday.ThreadPoolActivity">
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="48dp"
+        android:id="@+id/spinner"
+        android:entries="@array/thread_executor"
+        style=""/>
+
+    <Button
+        android:text="shutdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="116dp"
+        android:id="@+id/btn_shutdown" />
+
+    <Button
+        android:text="shutdownNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_shutdown"
+        android:layout_toRightOf="@+id/btn_shutdown"
+        android:layout_toEndOf="@+id/btn_shutdown"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:id="@+id/btn_shutdown_now" />
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package qll.com.everyday;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btn_apply;
+    private Button btn_apply,btn_thread;
     private TextView tv_camera;
     private final static int CAMERA_REQUEST_CODE =1;
 
@@ -55,11 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews(){
         btn_apply = (Button)findViewById(R.id.btn_apply_camera);
+        btn_thread = (Button)findViewById(R.id.btn_thread_pool);
         tv_camera = (TextView)findViewById(R.id.tv_camera_permission);
         btn_apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 applyPermission();
+            }
+        });
+        btn_thread.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ThreadPoolActivity.class));
             }
         });
     }
