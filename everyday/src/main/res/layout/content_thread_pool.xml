@@ -40,4 +40,45 @@
         android:layout_marginStart="54dp"
         android:id="@+id/btn_shutdown_now" />
 
+    <Button
+        android:text="自定义普通线程池"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:id="@+id/btn_ethe"
+        android:layout_below="@+id/btn_shutdown"
+        android:layout_alignLeft="@+id/btn_shutdown"
+        android:layout_alignStart="@+id/btn_shutdown" />
+
+    <Button
+        android:text="暂停/继续"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_interrupt"
+        android:layout_below="@+id/btn_ethe"
+        android:layout_alignLeft="@+id/btn_ethe"
+        android:layout_alignStart="@+id/btn_ethe"
+        android:layout_marginTop="37dp" />
+
+    <Button
+        android:text="启动可暂停线程池"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_interrupt"
+        android:layout_toRightOf="@+id/btn_shutdown"
+        android:layout_toEndOf="@+id/btn_shutdown"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:id="@+id/btn_can_pause" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_interrupt"
+        android:layout_alignLeft="@+id/btn_interrupt"
+        android:layout_alignStart="@+id/btn_interrupt"
+        android:layout_marginTop="44dp"
+        android:id="@+id/tv_pause_thread" />
+
 </RelativeLayout>

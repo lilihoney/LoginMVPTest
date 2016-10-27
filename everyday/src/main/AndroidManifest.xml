@@ -23,6 +23,10 @@
         <activity
             android:name=".ThreadPoolActivity"
             android:label="@string/title_activity_thread_pool"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MyListViewActivity"
+            android:label="@string/title_activity_my_list_view"
             android:theme="@style/AppTheme"></activity>
     </application>
 
